@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux';
@@ -26,9 +26,9 @@ const preventActionMiddleWare = store=> next=> action=>{
     console.log('\n');
 }
 
+const composeEnhancers= window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__||compose;
 
-
-const store = createStore(reducers, applyMiddleware(thunk, preventActionMiddleWare));
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk, preventActionMiddleWare)));
 
 ReactDOM.render(
     <Provider store={store}>
